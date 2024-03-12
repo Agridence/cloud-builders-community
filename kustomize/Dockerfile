@@ -1,4 +1,4 @@
-FROM alpine:3.12 AS build
+FROM alpine:latest AS build
 
 ARG KUSTOMIZE_VERSION
 
@@ -7,7 +7,7 @@ RUN wget -nv https://github.com/kubernetes-sigs/kustomize/releases/download/kust
   tar xvzf kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz
 
 
-FROM gcr.io/cloud-builders/gcloud
+FROM gcr.io/cloud-builders/gcloud-slim
 
 COPY --from=build kustomize /usr/bin/kustomize
 COPY kustomize.bash /builder/kustomize.bash
